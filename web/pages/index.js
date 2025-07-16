@@ -4,10 +4,8 @@ import Plot from "react-plotly.js";
 export default function Home() {
   const [start, setStart] = useState({ x: 0, y: 0, z: -8 });
   const [goal,  setGoal]  = useState({ x: 10, y: 10, z: -8 });
-  const [traj,  setTraj]  = useState([]);       // trajectory array
+  const [traj,  setTraj]  = useState([]);      
   const [waiting, setWaiting] = useState(false);
-
-  // ------------- send request -------------
   const apiCall = async () => {
     setWaiting(true);
     const res = await fetch("/api/fly", {
@@ -23,7 +21,6 @@ export default function Home() {
     setWaiting(false);
   };
 
-  // ------------- numeric input component -------------
   const Num = ({ obj, setObj, k, prefix }) => (
     <input
       key={`${prefix}-${k}`}
@@ -34,8 +31,6 @@ export default function Home() {
       className="border p-2 rounded w-20 mr-1"
     />
   );
-
-  // ------------- render -------------
   return (
     <main style={{ fontFamily: "sans-serif", padding: 32, maxWidth: 800 }}>
       <h1>UAV Point‑to‑Point Demo</h1>
@@ -54,7 +49,6 @@ export default function Home() {
         </button>
       </div>
 
-      {/* ---- top‑down XY plot ---- */}
       {traj.length > 1 && (
         <Plot
           data={[
@@ -79,8 +73,6 @@ export default function Home() {
           useResizeHandler
         />
       )}
-
-      {/* raw JSON for debugging */}
       <pre style={{ background: "#111", color: "#0f0", padding: 12, maxHeight: 180, overflow: "auto" }}>
         {JSON.stringify(traj, null, 2)}
       </pre>

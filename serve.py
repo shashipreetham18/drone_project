@@ -1,4 +1,3 @@
-# serve.py  – Flask back‑end that loads the trained model
 from flask import Flask, request, jsonify
 from stable_baselines3 import PPO
 from env.airsim_env import AirSimDroneEnv
@@ -13,14 +12,12 @@ def fly():
     data   = request.get_json(force=True)
     start  = np.array(data["start"], dtype=float)
     goal   = np.array(data["goal"],  dtype=float)
-
-    # force the goal in the env
     obs, _ = env.reset()
     env.goal = goal
-    env.client.moveToPositionAsync(*start, velocity=2).join()  # place drone
+    env.client.moveToPositionAsync(*start, velocity=2).join()
     obs = env._get_obs() 
 
-    traj = [obs[:3].tolist()]          # ← NEW: record first position
+    traj = [obs[:3].tolist()]          
     done = False
     while not done:
         action, _ = model.predict(obs, deterministic=True)
