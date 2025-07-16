@@ -1,0 +1,16 @@
+{
+  "name": "uav-ui",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "14",
+    "plotly.js-basic-dist": "^3.0.1",
+    "react": "18",
+    "react-dom": "18",
+    "react-plotly.js": "^2.6.0"
+  }
+}
